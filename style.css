@@ -1,0 +1,217 @@
+:root {
+    /* PALETTE COLORI "MATRIX GLITCH" - Profondo, Tecnologico, ad Alto Contrasto */
+    --bg-dark: #070e17;       /* Blu Notte Profondo (più scuro per maggiore impatto) */
+    --bg-accent: #0f172a;     /* Blu Notte Scuro (per card/sezioni secondarie) */
+    /* Gradiente più scuro e sottile per l'effetto "spazio profondo" */
+    --bg-gradient: radial-gradient(circle at top left, #0f172a 0%, #021612 100%);
+    
+    /* ACCENTI - Ciano e Verde Elettrico/Lime (Alta Visibilità) */
+    --neon-cyan: #22d3ee;     /* Ciano Elettrico */
+    --neon-green: #a7f3d0;    /* Verde Lime Neon (più chiaro e vibrante) */
+    
+    /* TESTO */
+    --text-primary: #f0fdf4;  /* Bianco Puro/Lime chiaro */
+    --text-secondary: #94a3b8;/* Grigio ardesia (per descrizioni) */
+    
+    /* CARD */
+    --card-bg: rgba(15, 23, 42, 0.7); /* Sfondo card più opaco */
+    --card-border: rgba(167, 243, 208, 0.3); /* Bordo più visibile (lime) */
+}
+
+/* ⚠️ Effetto Glitch sul Testo */
+@keyframes textGlitch {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(1px, -1px); }
+    60% { transform: translate(-1px, 1px); }
+    80% { transform: translate(1px, 1px); }
+    100% { transform: translate(0, 0); }
+}
+
+/* --- RESET & BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Font più tecnico e futuristico */
+    font-family: 'Fira Code', 'Space Mono', monospace;
+    color: var(--text-primary);
+    background: var(--bg-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* Rimuovi l'animazione di default dallo sfondo per un look più statico e profondo */
+}
+
+/* ANIMAZIONE SFONDO (Più sottile) */
+.gradient-bg {
+    background: var(--bg-gradient);
+    background-attachment: fixed; /* Rende lo sfondo fisso durante lo scroll */
+}
+
+/* --- HEADER --- */
+.header {
+    text-align: center;
+    padding: 6rem 1rem 3rem; /* Più spazio in alto */
+}
+
+.header h1 {
+    font-size: 3.5rem; /* Titolo più grande */
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    /* Gradiente e testo neon potenziati */
+    background: linear-gradient(to right, var(--neon-cyan), var(--neon-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Forte bagliore neon sul titolo */
+    text-shadow: 0 0 15px rgba(34, 211, 238, 0.6), 
+                 0 0 30px rgba(167, 243, 208, 0.3);
+    
+    /* Sottile effetto glitch sul titolo */
+    animation: textGlitch 5s infinite linear;
+}
+
+.header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0.5rem auto 0;
+}
+
+/* --- LAYOUT --- */
+.container {
+    max-width: 1300px; /* Larghezza leggermente maggiore */
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    flex: 1;
+}
+
+.category-section {
+    margin-bottom: 4rem; /* Più spazio tra le sezioni */
+}
+
+.category-section h2 {
+    color: var(--neon-green);
+    font-size: 1.5rem; /* Titoli sezione più grandi */
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    /* Sottolineatura cyberpunk con gradiente */
+    border-bottom: 2px solid var(--neon-cyan);
+    padding-left: 0; /* Rimuovi border-left */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 1;
+    font-weight: 700;
+}
+
+.link-grid {
+    display: grid;
+    /* Colonne un po' più strette ma più flessibili */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem; /* Più spazio tra le card */
+}
+
+/* --- CARD STILE GLITCH/SCANNER --- */
+.link-card {
+    display: block;
+    text-decoration: none;
+    /* Sfondo completamente scuro per le card non hoverate */
+    background: var(--bg-accent); 
+    border: 1px solid var(--card-border);
+    border-radius: 6px; /* Bordi più squadrati */
+    padding: 1.5rem;
+    transition: all 0.3s ease-out;
+    backdrop-filter: blur(5px); /* Blur leggermente ridotto */
+    -webkit-backdrop-filter: blur(5px);
+    position: relative;
+    overflow: hidden;
+    /* GLOW BASE: sottile alone di colore */
+    box-shadow: 0 0 5px rgba(167, 243, 208, 0.15);
+    
+    /* Aggiunge la linea dello scanner */
+    isolation: isolate; 
+}
+
+/* Linea di scansione animata */
+.link-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    /* Gradiente che simula una linea di scansione */
+    background: linear-gradient(to right, transparent, rgba(34, 211, 238, 0.1), transparent);
+    transition: all 0.5s ease-out;
+    transform: skewX(-20deg);
+    z-index: -1;
+}
+
+.link-card:hover {
+    transform: translateY(-5px); /* Sollevamento più contenuto */
+    background: rgba(15, 23, 42, 0.9); /* Sfondo più scuro all'hover */
+    border-color: var(--neon-cyan);
+    
+    /* GLOW INTENSO all'hover (stile neon) */
+    box-shadow: 0 0 15px var(--neon-green), 
+                0 0 30px var(--neon-cyan);
+}
+
+.link-card:hover::before {
+    /* Animazione della linea di scansione */
+    left: 100%; 
+    transition: all 1s ease-out;
+}
+
+/* Titoli delle card */
+.card-title {
+    color: var(--text-primary);
+    font-size: 1.2rem; /* Titolo leggermente più grande */
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.link-card:hover .card-title {
+    color: var(--neon-green);
+    /* Sottile bagliore per il titolo hoverato */
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+/* Descrizioni delle card */
+.card-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* --- FOOTER --- */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    /* Bordo superiore più sottile e di impatto */
+    border-top: 1px dashed var(--card-border); 
+    margin-top: auto;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .header h1 { font-size: 2.5rem; }
+    .category-section h2 { font-size: 1.3rem; }
+}
+
+@media (max-width: 600px) {
+    .header h1 { font-size: 2rem; }
+    .container { padding: 1rem 0.5rem; }
+    .category-section h2 { margin-bottom: 1.5rem; }
+}
